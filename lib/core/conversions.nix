@@ -125,7 +125,7 @@ rec {
   /* Converts a 6 character hexadecimal string to an RGB string seperated by a
     delimiter.
 
-    Type: hexToRGBString :: string -> string
+    Type: hexToRGBString :: string -> string -> string
 
     Args:
     sep: The delimiter or seperator.
@@ -141,7 +141,12 @@ rec {
     concatStringsSep sep hexInRGBString;
 
   /* Converts a 6 character hexadecimal string to an glsl vec4
-  	*/
+
+    Type: hexToGLSLVec :: string -> string
+
+    Args:
+    hex: A hexadecimal string of length 6.
+  */
   hexToGLSLVec = hex:
     let
       sep = ".0/255.0, ";
