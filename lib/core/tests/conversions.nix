@@ -51,4 +51,9 @@ runTests {
     expr = conversions.hexToRGBString "; " "000FFF";
     expected = "0; 15; 255";
   };
+
+  testHexToGLSLVec_1 = {
+    expr = conversions.hexToGLSLVec "00FFFF";
+    expected = "vec4(0.0/255.0, 255.0/255.0, 255.0/255.0, 1.0)";
+  };
 }

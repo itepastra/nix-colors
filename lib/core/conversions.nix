@@ -147,5 +147,5 @@ rec {
       sep = ".0/255.0, ";
       innerString = hexToRGBString sep hex;
     in
-    "vec4(${innerString}, 1.0);";
+    "vec4(${innerString}.0/255.0, 1.0)";
 }
