@@ -20,41 +20,41 @@ let
   };
 
   /* Conversion from base 16 to base 10 with a exponent. Is of the form
-     scalar * 16 ** exponent.
+    scalar * 16 ** exponent.
 
-     Type: base16To10 :: int -> int -> int
+    Type: base16To10 :: int -> int -> int
 
-     Args:
-       exponent: The exponent for the base, 16.
-       scalar: The value to multiple to the exponentiated base.
+    Args:
+    exponent: The exponent for the base, 16.
+    scalar: The value to multiple to the exponentiated base.
 
-     Example:
-       base16To10 0 11
-       => 11
-       base16To10 1 3
-       => 48
-       base16To10 2 7
-       1792
-       base16To10 3 14
-       57344
+    Example:
+    base16To10 0 11
+    => 11
+    base16To10 1 3
+    => 48
+    base16To10 2 7
+    1792
+    base16To10 3 14
+    57344
   */
   base16To10 = exponent: scalar: scalar * math.pow 16 exponent;
 
   /* Converts a hexadecimal character to decimal.
-     Only takes a string of length 1.
+    Only takes a string of length 1.
 
-     Type: hexCharToDec :: string -> int
+    Type: hexCharToDec :: string -> int
 
-     Args:
-       hex: A hexadecimal character.
+    Args:
+    hex: A hexadecimal character.
 
-     Example:
-       hexCharToDec "5"
-       => 5
-       hexCharToDec "e"
-       => 14
-       hexCharToDec "A"
-       => 10
+    Example:
+    hexCharToDec "5"
+    => 5
+    hexCharToDec "e"
+    => 14
+    hexCharToDec "A"
+    => 10
   */
   hexCharToDec = hex:
     let
@@ -71,18 +71,18 @@ in
 rec {
   /* Converts from hexadecimal to decimal.
 
-     Type: hexToDec :: string -> int
+    Type: hexToDec :: string -> int
 
-     Args:
-       hex: A hexadecimal string.
+    Args:
+    hex: A hexadecimal string.
 
-     Example:
-       hexadecimal "12"
-       => 18
-       hexadecimal "FF"
-       => 255
-       hexadecimal "abcdef"
-       => 11259375
+    Example:
+    hexadecimal "12"
+    => 18
+    hexadecimal "FF"
+    => 255
+    hexadecimal "abcdef"
+    => 11259375
   */
   hexToDec = hex:
     let
@@ -95,18 +95,18 @@ rec {
 
   /* Converts a 6 character hexadecimal string to RGB values.
 
-     Type: hexToRGB :: string => [int]
+    Type: hexToRGB :: string => [int]
 
-     Args:
-       hex: A hexadecimal string of length 6.
+    Args:
+    hex: A hexadecimal string of length 6.
 
-     Example:
-       hexToRGB "012345"
-       => [ 1 35 69 ]
-       hexToRGB "abcdef"
-       => [171 205 239 ]
-       hexToRGB "000FFF"
-       => [ 0 15 255 ]
+    Example:
+    hexToRGB "012345"
+    => [ 1 35 69 ]
+    hexToRGB "abcdef"
+    => [171 205 239 ]
+    hexToRGB "000FFF"
+    => [ 0 15 255 ]
   */
   hexToRGB = hex:
     let
@@ -123,13 +123,13 @@ rec {
       builtins.map hexToDec hexList;
 
   /* Converts a 6 character hexadecimal string to an RGB string seperated by a
-     delimiter.
+    delimiter.
 
-     Type: hexToRGBString :: string -> string
+    Type: hexToRGBString :: string -> string
 
-     Args:
-       sep: The delimiter or seperator.
-       hex: A hexadecimal string of length 6.
+    Args:
+    sep: The delimiter or seperator.
+    hex: A hexadecimal string of length 6.
   */
   hexToRGBString = sep: hex:
     let
@@ -139,4 +139,13 @@ rec {
       hexInRGBString = map toString hexInRGB;
     in
     concatStringsSep sep hexInRGBString;
+
+  /* Converts a 6 character hexadecimal string to an glsl vec4
+  	*/
+  hexToGLSLVec = hex:
+    let
+      sep = ".0/255.0, ";
+      innerString = hexToRGBString sep hex;
+    in
+    "vec4(${innerString}, 1.0);";
 }
